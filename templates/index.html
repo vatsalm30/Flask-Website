@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TODO APP</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+/* Style for body element */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #222;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+/* Style for container */
+.container {
+  background-color: #333;
+  padding: 40px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Style for h1 element */
+h1 {
+  color: #fff;
+  font-size: 24px; /* Increased font size */
+  margin-bottom: 20px; /* Increased margin bottom for spacing */
+}
+
+/* Style for form element */
+form {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* Style for input element */
+input[type="text"] {
+  padding: 10px; /* Increased padding */
+  font-size: 16px; /* Increased font size */
+  background-color: #444;
+  color: #fff;
+  border: none;
+}
+
+/* Style for button element */
+button {
+  padding: 10px 20px; /* Increased padding */
+  font-size: 16px; /* Increased font size */
+  background-color: #666;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for li element */
+li {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+/* Style for span element */
+span {
+  font-weight: bold;
+  font-size: 16px; /* Increased font size */
+}
+
+/* Style for span element when todo is done */
+span[style="text-decoration: line-through;"] {
+  color: #999;
+}
+
+/* Style for a tags */
+a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+/* Apply alternating background colors to li elements */
+li:nth-child(even) {
+  background-color: #444;
+}
+
+li:nth-child(odd) {
+  background-color: #333;
+}
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Todos</h1>
+      <form action="{{url_for('add')}}" method="post">
+        <input type="text" name="todo" value="Go Get Milk"/>
+        <button type="submit">Add TODO</button>
+      </form>
+      <ul>
+        {% for todo in todos%}
+        <li>
+          <span {% if todo["done"] %}style="text-decoration: line-through;" {% endif %}>
+            {{todo["todo"]}}
+          </span>
+          <a href="{{url_for('check', index = loop.index0)}}"> CHECK </a>
+          <a href="{{url_for('edit', index = loop.index0)}}"> EDIT </a>
+          <a href="{{url_for('delete', index = loop.index0)}}"> DELETE </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
